@@ -4,7 +4,7 @@ import Time from './componentes/Time/index.js'
 import Formulario from './componentes/Formulario/index.js';
 import Rodape from './componentes/Rodape/index.js';
 
-function App() {
+function PageOrgano() {
 
   const times = [
     {
@@ -52,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default PageOrgano;
