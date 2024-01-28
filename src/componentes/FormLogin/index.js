@@ -1,48 +1,41 @@
 import { Link } from 'react-router-dom'
-import  './FormCadastro.css'
+import './FormLogin.css'
 import React, { useState } from 'react'
 
-const FormCadastro = () => {
-    const [formData, setFormData] = useState({
-        name: '',
+const FormLogin = () => {
+    
+    const [loginData, setLoginData] = useState({
         email: '',
         password: '',
     })
-
     const handleChange = (e) => {
         const { name, value } = e.target
-        setFormData((prevData) => ({
+        setLoginData((prevData) => ({
             ...prevData,
             [name]: value,
         }))
     }
 
+    // const clickFormCadastro = () => {
+    //     window.push('/Cadastrar')
+    // }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        console.log('Dados do login', loginData);
     }
 
 
-    return(
-        <section className='formCadastro'>
+    return (
+        <section className='formLogin'>
             <form onSubmit={handleSubmit}>
-                <h1>Faça seu cadastro</h1>
-                <label>
-                    Nome:
-                    <input
-                        type='text'
-                        name='name'
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br/>
+                <h1>Faça seu login</h1>
                 <label>
                     Email:
                     <input
                         type='email'
                         name='email'
-                        value={formData.email}
+                        value={loginData.email}
                         onChange={handleChange}
                     />
                 </label>
@@ -52,19 +45,20 @@ const FormCadastro = () => {
                     <input
                         type='password'
                         name='password'
-                        value={formData.password}
+                        value={loginData.password}
                         onChange={handleChange}
                     />
                 </label>
                 <br/>
-                <button className='bottonCadastro' type='submit'>Cadastrar</button>
+                <button type='submit' className='bottonLogin'>Login</button>
                 <br/>
-
-               <Link to='/'> Ja tenho conta</Link>
+                <br/>
+                
+                <Link to='/cadastrar' > Cadastre-se! </Link>
+                
             </form>
-
         </section>
     )
 }
 
-export default FormCadastro
+export default FormLogin
