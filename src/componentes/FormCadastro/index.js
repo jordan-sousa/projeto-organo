@@ -1,24 +1,37 @@
-import { Link } from 'react-router-dom'
+import { Link, Router, useNavigate } from 'react-router-dom'
 import  './FormCadastro.css'
 import React, { useState } from 'react'
 
 const FormCadastro = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-    })
-
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }))
-    }
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navegar = useNavigate()
 
     const handleSubmit = (e) => {
+        // const {name, email, password} = e.target;
         e.preventDefault()
+        if(name == "" || email == "" || password == "") {
+            setError('Preencha todos os campos!')
+            return;
+        }
+
+        const dadosUsuario = {
+            name: name,
+            email: email,
+            password: password,
+        }
+        console.log(dadosUsuario);
+
+        localStorage.setItem('usuario', JSON.stringify(dadosUsuario));
+        alert('Cadastrado com sucesso!')
+
+        navegar('/')
+
+        setName ('')
+        setEmail ('')
+        setPassword ('')
         
     }
 
@@ -32,8 +45,9 @@ const FormCadastro = () => {
                     <input
                         type='text'
                         name='name'
-                        value={formData.name}
-                        onChange={handleChange}
+                        placeholder='Digite seu nome'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
                 <br/>
@@ -42,8 +56,9 @@ const FormCadastro = () => {
                     <input
                         type='email'
                         name='email'
-                        value={formData.email}
-                        onChange={handleChange}
+                        placeholder='Digite seu E-mail'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
                 <br/>
@@ -52,8 +67,9 @@ const FormCadastro = () => {
                     <input
                         type='password'
                         name='password'
-                        value={formData.password}
-                        onChange={handleChange}
+                        placeholder='Digite sua senha'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
                 <br/>
