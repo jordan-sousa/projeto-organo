@@ -1,4 +1,4 @@
-import { Link, Router, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import  './FormCadastro.css'
 import React, { useState } from 'react'
 
@@ -6,14 +6,14 @@ const FormCadastro = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [msgError, setMsgError] = useState('');
     const navegar = useNavigate()
 
     const handleSubmit = (e) => {
         // const {name, email, password} = e.target;
         e.preventDefault()
-        if(name == "" || email == "" || password == "") {
-            setError('Preencha todos os campos!')
+        if(name === "" || email === "" || password === "") {
+            setMsgError('Preencha todos os campos!')
             return;
         }
 
@@ -29,9 +29,7 @@ const FormCadastro = () => {
 
         navegar('/')
 
-        setName ('')
-        setEmail ('')
-        setPassword ('')
+        
         
     }
 
@@ -50,6 +48,7 @@ const FormCadastro = () => {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </label>
+                
                 <br/>
                 <label>
                     Email:
@@ -61,6 +60,7 @@ const FormCadastro = () => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
+                
                 <br/>
                 <label>
                     Senha:
@@ -72,6 +72,7 @@ const FormCadastro = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
+                <div> {msgError} </div>
                 <br/>
                 <button className='bottonCadastro' type='submit'>Cadastrar</button>
                 <br/>

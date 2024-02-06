@@ -1,28 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './FormLogin.css'
 import React, { useState } from 'react'
 
 const FormLogin = () => {
-    
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: '',
-    })
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setLoginData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }))
-    }
-
-    // const clickFormCadastro = () => {
-    //     window.push('/Cadastrar')
-    // }
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [msgError, setMsgError] = useState('')
+    const navegar = useNavigate()
 
     const handleSubmit = (e) => {
+        
         e.preventDefault()
-        console.log('Dados do login', loginData);
+        
+        const usuario = JSON.parse(localStorage.getItem("usuario"))
+
+        if (!usuario || usuario.email !== email || usuario.password !== password) {
+            setMsgError("Email ou senha invalidos!")
+            return
+        }
+
+        alert("Login realizado com sucesso!")
+        navegar('/organo')
+
     }
 
 
@@ -35,27 +34,29 @@ const FormLogin = () => {
                     <input
                         type='email'
                         name='email'
-                        value={loginData.email}
-                        onChange={handleChange}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
-                <br/>
+                <br />
                 <label>
                     Senha:
                     <input
                         type='password'
                         name='password'
-                        value={loginData.password}
-                        onChange={handleChange}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
+                <br />
+                <div> {msgError} </div>
                 <br/>
                 <button type='submit' className='bottonLogin'>Login</button>
-                <br/>
-                <br/>
-                
+                <br />
+                <br />
+
                 <Link to='/cadastrar' > Cadastre-se! </Link>
-                
+
             </form>
         </section>
     )
