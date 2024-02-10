@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Rodape.css'
 import { FaInstagramSquare, FaLinkedin, FaGithub } from "react-icons/fa";
 
@@ -7,25 +8,27 @@ const Rodape = () => {
             <section>
                 <ul>
                     <li>
-                        <a href='https://www.instagram.com/jordan_sousa17/' target='_blank'>
+                        <Link to="https://www.instagram.com/jordan_sousa17/" >
                             <FaInstagramSquare />
-                        </a>
+                        </Link>
                     </li>
+
                     <li>
-                        <a href='https://www.linkedin.com/in/jordansousadev' target='_blank'>
+                        <Link to="https://www.linkedin.com/in/jordansousadev" >
                             <FaLinkedin />
-                        </a>
+                        </Link>
                     </li>
+                    
                     <li>
-                        <a href='https://github.com/jordan-sousa' target='_blank'>
+                        <Link to="https://github.com/jordan-sousa" >
                             <FaGithub />
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </section>
 
             <section>
-                <img src='/imagens/logo.png'/>
+                <img src='/imagens/logo.png' />
             </section>
 
             <section>

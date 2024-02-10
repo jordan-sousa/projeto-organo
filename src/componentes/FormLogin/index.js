@@ -1,27 +1,42 @@
 import { Link, useNavigate } from 'react-router-dom'
+import UserServices from '../../services/UserServices'
+import { validarEmail, validarSenha } from '../../ultis/Validadores'
 import './FormLogin.css'
 import React, { useState } from 'react'
 
+const apiUrl = process.env.REACT_APP_API_LOGIN;
+
+const userService = new UserServices()
+
 const FormLogin = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [msgError, setMsgError] = useState('')
-    const navegar = useNavigate()
+    const [loading, setLoading] = useState()
+    const [form, setForm] = useState([])
+    const navegate = useNavigate()
 
-    const handleSubmit = (e) => {
-        
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        
-        const usuario = JSON.parse(localStorage.getItem("usuario"))
 
-        if (!usuario || usuario.email !== email || usuario.password !== password) {
-            setMsgError("Email ou senha invalidos!")
-            return
+        try {
+            setLoading(true)
+            const response = await userService.login(form)
+// console.log('minha resposta', response);
+            if(response === true) {
+                alert('Usuario logado com sucesso.')
+                navegate('/organo')
+            }
+            setLoading(false)
+        } catch(err) {
+            alert('Algo deu errado no login ' + err)
         }
 
-        alert("Login realizado com sucesso!")
-        navegar('/organo')
+    }
 
+    const handleChange = (e) => {
+        setForm({...form, [e.target.name]: e.target.value})
+    }
+
+    const validadorInput = () => {
+        return validarEmail(form.email) && validarSenha(form.password)
     }
 
 
@@ -33,9 +48,9 @@ const FormLogin = () => {
                     Email:
                     <input
                         type='email'
+                        placeholder='Digite seu email'
                         name='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                     />
                 </label>
                 <br />
@@ -43,15 +58,21 @@ const FormLogin = () => {
                     Senha:
                     <input
                         type='password'
+                        placeholder='Digite sua senha'
                         name='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handleChange}
                     />
                 </label>
                 <br />
-                <div> {msgError} </div>
+                <div> </div>
                 <br/>
-                <button type='submit' className='bottonLogin'>Login</button>
+                <button 
+                type='submit' 
+                className='bottonLogin'
+                disabled={loading === true || !validadorInput()}
+                >
+                    Login
+                </button>
                 <br />
                 <br />
 
