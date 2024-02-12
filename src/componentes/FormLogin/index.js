@@ -4,40 +4,54 @@ import { validarEmail, validarSenha } from '../../ultis/Validadores'
 import './FormLogin.css'
 import React, { useState } from 'react'
 
-const apiUrl = process.env.REACT_APP_API_LOGIN;
-
 const userService = new UserServices()
 
 const FormLogin = () => {
-    const [loading, setLoading] = useState()
-    const [form, setForm] = useState([])
+    const [loading, setLoading] = useState(false)
+    // const [form, setForm] = useState([])
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
     const navegate = useNavigate()
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
+        const form = e.target;
+        const { email, password } = e.target.elements;
+    
         try {
-            setLoading(true)
-            const response = await userService.login(form)
-// console.log('minha resposta', response);
-            if(response === true) {
-                alert('Usuario logado com sucesso.')
-                navegate('/organo')
+            setLoading(true);
+    
+            const getUserStorage = localStorage.getItem('usuario');
+    
+            if(!getUserStorage){
+                alert('Usuário não encontrado!');
+                return false;
             }
-            setLoading(false)
+    
+            const user = JSON.parse(getUserStorage);
+    
+            if (user.email === form.email.value && user.password === form.password.value) {
+                alert('Usuário logado com sucesso');
+                navegate('/organo');
+            } else {
+                alert('Email ou senha incorretos');
+            }
+    
+            setLoading(false);
         } catch(err) {
-            alert('Algo deu errado no login ' + err)
+            alert('Algo deu errado no login ' + err);
         }
-
     }
+    
 
-    const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value})
-    }
+    // const handleChange = (e) => {
+    //     setForm({...form, [e.target.name]: e.target.value})
+    //     console.log(e);
+    // }
 
-    const validadorInput = () => {
-        return validarEmail(form.email) && validarSenha(form.password)
-    }
+    // const validadorInput = () => {
+    //     return validarEmail(form.email) && validarSenha(form.password)
+    // }
 
 
     return (
@@ -50,7 +64,8 @@ const FormLogin = () => {
                         type='email'
                         placeholder='Digite seu email'
                         name='email'
-                        onChange={handleChange}
+                        // onChange={handleChange}
+                        required 
                     />
                 </label>
                 <br />
@@ -60,7 +75,8 @@ const FormLogin = () => {
                         type='password'
                         placeholder='Digite sua senha'
                         name='password'
-                        onChange={handleChange}
+                        // onChange={handleChange}
+                        required 
                     />
                 </label>
                 <br />
@@ -69,9 +85,9 @@ const FormLogin = () => {
                 <button 
                 type='submit' 
                 className='bottonLogin'
-                disabled={loading === true || !validadorInput()}
+                disabled={loading}
                 >
-                    Login
+                    {loading ? 'Carregando...' : 'Login'}
                 </button>
                 <br />
                 <br />

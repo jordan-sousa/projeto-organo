@@ -13,9 +13,7 @@ function AppRoutes() {
         <Route path="*" element={ <Login /> } />
         <Route path="/cadastrar" element={ <Cadastrar /> } />
         <Route path='/organo' element={ 
-          <RotaProtegida>
-            <PageOrgano /> 
-          </RotaProtegida>
+          <PageOrgano /> 
         }/>
       </Routes>
     </BrowserRouter>

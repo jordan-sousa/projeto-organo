@@ -10,8 +10,8 @@ export default class UserServices {
 
     async login(dados) {
         const {data} = await this.axios.post('/login', dados)
-        
         if(data) {
+            console.log('qual é esse valor', data);
             localStorage.setItem("nome", data.user.nome)
             localStorage.setItem("email", data.user.email)
             localStorage.setItem("token", data.token.token)

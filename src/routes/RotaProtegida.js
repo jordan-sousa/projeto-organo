@@ -6,7 +6,7 @@ const userService = new UserServices()
 
 const RotaProtegida = ({ children }) => {
     const usuarioAutenticado = userService.usuarioAutenticado()
-// console.log('minha rota', usuarioAutenticado);
+
     return !usuarioAutenticado ? children : <AppRoutes />
 }
 
