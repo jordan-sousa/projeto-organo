@@ -3,6 +3,7 @@ import Banner from '../../componentes/Banner/Banner.js';
 import Time from '../../componentes/Time/index.js'
 import Formulario from '../../componentes/Formulario/index.js';
 import Rodape from '../../componentes/Rodape/index.js';
+import Logout from '../../componentes/Logout/index.js';
 
 function PageOrgano() {
 
@@ -38,6 +39,7 @@ function PageOrgano() {
   return (
     <div className="App">
       <Banner />
+      <Logout/>
       <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)} />
       {times.map(time => <Time 
         key={time.nome} 

@@ -30,4 +30,10 @@ export default class UserServices {
         return localStorage.getItem("token") !== undefined ? true : false
     }
 
+    async logout () {
+        localStorage.removeItem("token")
+        localStorage.removeItem("nome")
+        localStorage.removeItem("email")
+      }
+
 }
