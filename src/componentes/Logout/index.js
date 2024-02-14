@@ -4,10 +4,19 @@ import UserServices from '../../services/UserServices'
 
 const Logout = (props) => {
 
+    const usuarioString = localStorage.getItem("usuario")
+    const usuario = JSON.parse(usuarioString);
+    
+console.log(usuario.name);
     return (
-        <Link to="/" className='logout'>
-            Sair
-        </Link>
+        <div className='container'>
+            <Link to="/" className='logout'>
+                Sair
+            </Link>
+            <p>
+                Olá, {usuario.name}
+            </p>
+        </div>
     )
 }
 

@@ -9,6 +9,12 @@
     right: 10px;
 }
 
+.container{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
 .logout:hover{
     background-color: brown;
     color: aquamarine;

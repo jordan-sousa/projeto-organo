@@ -22,15 +22,14 @@ const FormCadastro = () => {
             email: email,
             password: password,
         }
-        console.log(dadosUsuario);
+        setName('')
+        setEmail('')
+        setPassword('')
 
         localStorage.setItem('usuario', JSON.stringify(dadosUsuario));
         alert('Cadastrado com sucesso!')
 
         navegar('/')
-
-        
-        
     }
 
 
